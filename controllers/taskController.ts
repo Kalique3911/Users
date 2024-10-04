@@ -2,11 +2,11 @@ import { taskModel } from "../models/taskModel"
 import { Request, Response } from "express"
 
 const createTask = async (req: Request, res: Response) => {
-    const { chatId, senderId, text } = req.body
+    const { taskName, creatorId, text } = req.body
 
     const message = new taskModel({
-        chatId,
-        senderId,
+        taskName,
+        creatorId,
         text,
     })
 
@@ -19,11 +19,11 @@ const createTask = async (req: Request, res: Response) => {
     }
 }
 
-const getTasks = async (req: Request, res: Response) => {
-    const { chatId } = req.params
+const getUserTasks = async (req: Request, res: Response) => {
+    const { creatorId } = req.params
 
     try {
-        const messages = await taskModel.find({ chatId })
+        const messages = await taskModel.find({ creatorId })
         res.status(200).json(messages)
     } catch (error) {
         console.log(error)
@@ -31,4 +31,4 @@ const getTasks = async (req: Request, res: Response) => {
     }
 }
 
-export { createTask, getTasks }
+export { createTask, getUserTasks }

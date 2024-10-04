@@ -5,25 +5,31 @@ const createUser = async (req: Request, res: Response | any) => {
     try {
         const { name, password, email } = req.body
 
-        let passwordRegExp = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,16}$/
-        let emailRegExp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+        if (!name || !password || !email) {
+            return res.status(400).json("All fields are required")
+        }
 
         let user = await userModel.findOne({ name })
-
         if (user) {
-            return res.status(400).json("User already exists!")
+            return res.status(400).json("This name is already associated with an account")
         }
-        if (!name || !password) {
-            return res.status(400).json("All fields are required!")
+        user = await userModel.findOne({ email })
+        if (user) {
+            return res.status(400).json("This email is already associated with an account")
         }
+
+        let passwordRegExp = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{8,1024}$/
+        let emailRegExp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
         if (!passwordRegExp.test(password)) {
-            return res.status(400).json("Invalid password!")
+            return res.status(400).json("Invalid password")
         }
-        if (!email.test(email)) {
-            return res.status(400).json("Invalid email!")
+        if (!emailRegExp.test(email)) {
+            return res.status(400).json("Invalid email")
         }
 
         user = new userModel({ name, password, email })
+
+        await user.save()
 
         res.status(200).json({ id: user._id, name, email }) //returned object is reason for 'any'
     } catch (error) {
@@ -32,17 +38,21 @@ const createUser = async (req: Request, res: Response | any) => {
     }
 }
 
-const authoriseUser = async (req: Request, res: Response | any) => {
+const authoriseUser /*N/I*/ = async (req: Request, res: Response | any) => {
     try {
-        const { name, password } = req.body //todo name or email
-        let user = await userModel.findOne({ name })
+        const { passwordOrEmail, password } = req.body
+        let user = await userModel.findOne({ passwordOrEmail })
 
-        if (!user) return res.status(400).json("Invalid name or password")
+        if (!user) {
+            return res.status(400).json("Invalid name or password")
+        }
 
         const isValidPassword = password === user.password
-        if (!isValidPassword) return res.status(400).json("Invalid name or password")
+        if (!isValidPassword) {
+            return res.status(400).json("Invalid name or password")
+        }
 
-        res.status(200).json({ id: user._id, name }) //returned object is reason for 'any'
+        res.status(200).json({ id: user._id, passwordOrEmail }) //returned object is reason for 'any'
     } catch (error) {
         console.log(error)
         res.status(500).json(error)

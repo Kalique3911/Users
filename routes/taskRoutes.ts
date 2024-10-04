@@ -1,8 +1,9 @@
 import express from "express"
-import { createTask, getTasks } from "../controllers/taskController"
+import { createTask, getUserTasks } from "../controllers/taskController"
 const router = express.Router()
 
 router.post("/", createTask)
-router.get("/:chatId", getTasks)
+router.get("/:creatorId", getUserTasks)
 
-export { router }
+const taskRoutes = router
+export { taskRoutes }

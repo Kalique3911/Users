@@ -7,4 +7,5 @@ router.post("/authorise", authoriseUser)
 router.get("/find/:userId", findUser)
 router.get("/", getUsers)
 
-export { router }
+const userRoutes = router
+export { userRoutes }
