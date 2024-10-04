@@ -1,0 +1,29 @@
+{
+    "name": "Users",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "tsc && node index.js",
+        "dev": "nodemon index.ts"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@eslint/js": "^9.11.1",
+        "@types/express": "^5.0.0",
+        "@types/node": "^22.7.4",
+        "eslint": "^9.11.1",
+        "globals": "^15.10.0",
+        "nodemon": "^3.1.7",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.6.2",
+        "typescript-eslint": "^8.8.0"
+    },
+    "dependencies": {
+        "dotenv": "^16.4.5",
+        "express": "^4.21.0",
+        "mongoose": "^8.7.0"
+    }
+}
