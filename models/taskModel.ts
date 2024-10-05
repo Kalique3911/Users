@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 
 const messageSchema = new mongoose.Schema({
-    taskName: String,
+    name: String,
     creatorId: String,
     text: String,
 })

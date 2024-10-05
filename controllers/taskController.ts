@@ -1,18 +1,21 @@
 import { taskModel } from "../models/taskModel"
 import { Request, Response } from "express"
 
-const createTask = async (req: Request, res: Response) => {
-    const { taskName, creatorId, text } = req.body
-
-    const message = new taskModel({
-        taskName,
-        creatorId,
-        text,
-    })
-
+const createTask = async (req: Request, res: Response | any) => {
     try {
-        const response = await message.save()
-        res.status(200).json(response)
+        let { name, creatorId, text } = req.body
+
+        if (!creatorId || !name || !text) {
+            return res.status(400).json("All fields are required")
+        }
+
+        let task = new taskModel({
+            name,
+            creatorId,
+            text,
+        })
+        await task.save()
+        res.status(200).json({ name, creatorId, text, id: task._id })
     } catch (error) {
         console.log(error)
         res.status(500).json(error)
@@ -20,10 +23,9 @@ const createTask = async (req: Request, res: Response) => {
 }
 
 const getUserTasks = async (req: Request, res: Response) => {
-    const { creatorId } = req.params
-
     try {
-        const messages = await taskModel.find({ creatorId })
+        let { creatorId } = req.params
+        let messages = await taskModel.find({ creatorId })
         res.status(200).json(messages)
     } catch (error) {
         console.log(error)
@@ -31,4 +33,32 @@ const getUserTasks = async (req: Request, res: Response) => {
     }
 }
 
-export { createTask, getUserTasks }
+const updateTask = async (req: Request, res: Response | any) => {
+    try {
+        let { taskId } = req.params
+        let { name, creatorId, text } = req.body
+
+        if (!creatorId || !name || !text) {
+            return res.status(400).json("All fields are required")
+        }
+
+        let task = await taskModel.findByIdAndUpdate(taskId, { name, creatorId, text }, { new: true })
+        res.status(200).json({ name, creatorId, text, id: task!._id })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json(error)
+    }
+}
+
+const deleteTask = async (req: Request, res: Response) => {
+    try {
+        let { taskId } = req.params
+        let task = await taskModel.findByIdAndDelete(taskId)
+        res.status(200).json(task)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json(error)
+    }
+}
+
+export { createTask, getUserTasks, updateTask, deleteTask }
