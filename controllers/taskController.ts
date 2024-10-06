@@ -1,3 +1,4 @@
+import { SortOrder } from "mongoose"
 import { taskModel } from "../models/taskModel"
 import { Request, Response } from "express"
 
@@ -22,11 +23,37 @@ const createTask = async (req: Request, res: Response | any) => {
     }
 }
 
-const getUserTasks = async (req: Request, res: Response) => {
+const getUserTasks = async (req: Request, res: Response | any) => {
     try {
         let { creatorId } = req.params
-        let messages = await taskModel.find({ creatorId })
-        res.status(200).json(messages)
+        let { page, name, order } = req.query
+        let sortOrder: SortOrder
+
+        if (!order) {
+            order = "1"
+        } else if (order !== "-1" && order !== "1") {
+            return res.status(400).json("Invalid order")
+        }
+
+        order === "1" ? (sortOrder = 1) : (sortOrder = -1)
+
+        let query: { taskName?: { $regex: string }; creatorId: string } = { creatorId: creatorId }
+
+        if (name) {
+            query.taskName = { $regex: name.toString() }
+        }
+
+        if (Number(page) < 0 || !page) {
+            page = "0"
+        }
+        let tasksPerPage = 1
+
+        let tasks = await taskModel
+            .find(query)
+            .limit(tasksPerPage)
+            .sort({ _id: sortOrder })
+            .skip(Number(page) * tasksPerPage)
+        res.status(200).json(tasks)
     } catch (error) {
         console.log(error)
         res.status(500).json(error)
