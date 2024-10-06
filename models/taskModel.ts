@@ -1,9 +1,9 @@
 import mongoose from "mongoose"
 
-const messageSchema = new mongoose.Schema({
-    name: String,
+const taskSchema = new mongoose.Schema({
+    title: String,
     creatorId: String,
     text: String,
 })
 
-export const taskModel = mongoose.model("Message", messageSchema)
+export const taskModel = mongoose.model("Task", taskSchema)

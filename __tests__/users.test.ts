@@ -9,7 +9,10 @@ const userPayload = {
     name: "testuser99",
     password: "Strong111",
     email: "w@l.com",
-    id: null,
+    _id: null,
+    //next two fields require periodic change
+    testuserId: "6702f3ca9fcea3f944c54bfa",
+    adminToken: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDJmMzlkOWZjZWEzZjk0NGM1NGJmNiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyODI0NjY4NSwiZXhwIjoxNzI4NTA1ODg1fQ.fT51nhLUl162VerRuSvoST2FuiiSOn8JVsTc5KBzNRA",
 }
 
 describe("users", () => {
@@ -27,14 +30,14 @@ describe("users", () => {
     describe("get users route", () => {
         describe("given the user exsits", () => {
             it("should return 200", async () => {
-                const id = "67007c9405f77bd36075f876"
-                await supertest(app).get(`/users/${id}`).expect(200)
+                const _id = userPayload.testuserId
+                await supertest(app).get(`/users/${_id}`).expect(200)
             })
         })
         describe("given the user does not exsit", () => {
             it("should return 500", async () => {
-                const id = "123"
-                await supertest(app).get(`/users/${id}`).expect(500)
+                const _id = "123"
+                await supertest(app).get(`/users/${_id}`).expect(500)
             })
         })
         describe("given the creation data is not ok", () => {
@@ -62,7 +65,7 @@ describe("users", () => {
                 it("should return 200", async () => {
                     const { statusCode, body } = await supertest(app).post(`/users/create`).send(userPayload)
                     expect(statusCode).toBe(200)
-                    userPayload.id = body.id
+                    userPayload._id = body._id
                 })
             })
             describe("given user already exists", () => {
@@ -88,13 +91,13 @@ describe("users", () => {
         })
         describe("given user is permitted to delete", () => {
             it("should return 200", async () => {
-                const { statusCode } = await supertest(app).delete(`/users/${userPayload.id}`)
+                const { statusCode } = await supertest(app).delete(`/users/${userPayload._id}`).set("Authorization", userPayload.adminToken)
                 expect(statusCode).toBe(200)
             })
         })
         describe("given user is deleted", () => {
             it("should return null in body", async () => {
-                const { body } = await supertest(app).get(`/users/${userPayload.id}`)
+                const { body } = await supertest(app).get(`/users/${userPayload._id}`)
                 expect(body).toBe(null)
             })
         })

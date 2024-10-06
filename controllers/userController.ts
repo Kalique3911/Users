@@ -1,38 +1,59 @@
 import { SortOrder } from "mongoose"
 import { userModel } from "../models/userModel"
 import { Request, Response } from "express"
+import jwt, { JwtPayload } from "jsonwebtoken"
 
-const createUser = async (req: Request, res: Response | any) => {
+const generateToken = (id: any, role: string) => {
+    //'any' because imported ObjectId is not assignable to needed Object id
+    const payload = {
+        id,
+        role,
+    }
+
+    return jwt.sign(payload, "SUPER_SECRET_KEY", { expiresIn: "3d" })
+}
+
+const createUser = async (req: Request, res: Response) => {
     try {
         let { name, password, email } = req.body
-
-        if (!name || !password || !email) {
-            return res.status(400).json("All fields are required") //reason for 'any'
+        let role: string
+        if (name === "ADMIN") {
+            role = "ADMIN"
+        } else {
+            role = "USER"
         }
 
+        if (!name || !password || !email) {
+            res.status(400).json("All fields are required")
+            return
+        }
         let user = await userModel.findOne({ name })
         if (user) {
-            return res.status(400).json("This name is already associated with an account") //reason for 'any'
+            res.status(400).json("This name is already associated with an account") //reason for 'any'
+            return
         }
         user = await userModel.findOne({ email })
         if (user) {
-            return res.status(400).json("This email is already associated with an account") //reason for 'any'
+            res.status(400).json("This email is already associated with an account") //reason for 'any'
+            return
         }
 
         let passwordRegExp = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{8,1024}$/
         let emailRegExp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
         if (!passwordRegExp.test(password)) {
-            return res.status(400).json("Invalid password") //reason for 'any'
+            res.status(400).json("Invalid password")
+            return
         }
         if (!emailRegExp.test(email)) {
-            return res.status(400).json("Invalid email") //reason for 'any'
+            res.status(400).json("Invalid email")
+            return
         }
 
-        user = new userModel({ name, password, email })
+        user = await new userModel({ name, password, email, role }).save()
 
-        await user.save()
+        const token = generateToken(user._id, user.role)
 
-        res.status(200).json({ id: user._id, name, email })
+        res.status(200).json({ _id: user._id, name: user.name, email: user.email, token })
     } catch (error) {
         console.log(error)
         res.status(500).json(error)
@@ -45,15 +66,19 @@ const authoriseUser /*N/I*/ = async (req: Request, res: Response | any) => {
         let user = await userModel.findOne({ passwordOrEmail })
 
         if (!user) {
-            return res.status(400).json("Invalid name, email or password") //reason for 'any'
+            res.status(400).json("Invalid name, email or password")
+            return
         }
 
         const isValidPassword = password === user.password
         if (!isValidPassword) {
-            return res.status(400).json("Invalid name, email or password") //reason for 'any'
+            res.status(400).json("Invalid name, email or password")
+            return
         }
 
-        res.status(200).json({ id: user._id, passwordOrEmail })
+        const token = generateToken(user._id, user.role)
+
+        res.status(200).json({ _id: user._id, name: user.name, email: user.email, token })
     } catch (error) {
         console.log(error)
         res.status(500).json(error)
@@ -66,25 +91,30 @@ const updateUser = async (req: Request, res: Response | any) => {
         let { name, password, email } = req.body
 
         if (!name || !password || !email) {
-            return res.status(400).json("All fields are required") //reason for 'any'
+            res.status(400).json("All fields are required")
+            return
         }
 
         let user = await userModel.findOne({ name })
         if (user && user._id.toString() !== userId) {
-            return res.status(400).json("This name is already associated with an account") //reason for 'any'
+            res.status(400).json("This name is already associated with an account") //reason for 'any'
+            return
         }
         user = await userModel.findOne({ email })
         if (user && user._id.toString() !== userId) {
-            return res.status(400).json("This email is already associated with an account") //reason for 'any'
+            res.status(400).json("This email is already associated with an account") //reason for 'any'
+            return
         }
 
         let passwordRegExp = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{8,1024}$/
         let emailRegExp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
         if (!passwordRegExp.test(password)) {
-            return res.status(400).json("Invalid password") //reason for 'any'
+            res.status(400).json("Invalid password")
+            return
         }
         if (!emailRegExp.test(email)) {
-            return res.status(400).json("Invalid email") //reason for 'any'
+            res.status(400).json("Invalid email")
+            return
         }
 
         user = await userModel.findByIdAndUpdate(userId, { name, password, email }, { new: true })
@@ -98,7 +128,7 @@ const updateUser = async (req: Request, res: Response | any) => {
 const deleteUser = async (req: Request, res: Response) => {
     try {
         let { userId } = req.params
-        let user = await userModel.findByIdAndDelete(userId)
+        let user = await userModel.findByIdAndDelete(userId).select("name email")
         res.status(200).json(user)
     } catch (error) {
         console.log(error)
@@ -110,7 +140,7 @@ const findUser = async (req: Request, res: Response) => {
     try {
         let userId = req.params.userId
 
-        let user = await userModel.findById(userId)
+        let user = await userModel.findById(userId).select("name email")
         res.status(200).json(user)
     } catch (error) {
         console.log(error)
@@ -126,7 +156,8 @@ const getUsers = async (req: Request, res: Response | any) => {
         if (!order) {
             order = "1"
         } else if (order !== "-1" && order !== "1") {
-            return res.status(400).json("Invalid order")
+            res.status(400).json("Invalid order")
+            return
         }
 
         order === "1" ? (sortOrder = 1) : (sortOrder = -1)
@@ -144,6 +175,7 @@ const getUsers = async (req: Request, res: Response | any) => {
 
         let users = await userModel
             .find(query)
+            .select("name email")
             .limit(usersPerPage)
             .sort({ _id: sortOrder })
             .skip(Number(page) * usersPerPage)
