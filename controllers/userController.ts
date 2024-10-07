@@ -1,9 +1,14 @@
 import { SortOrder } from "mongoose"
 import { userModel } from "../models/userModel"
 import { NextFunction, Request, Response } from "express"
-import jwt, { JwtPayload } from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 import { IGetUserAuthInfoRequest } from "../types"
 import { ErrorHandler } from "../utils/errorHandling"
+import { logger } from "../logger"
+import { randomUUID } from "crypto"
+import path from "path"
+import { UploadedFile } from "express-fileupload"
+import { taskModel } from "../models/taskModel"
 
 const generateToken = (id: any, role: string) => {
     //'any' because imported ObjectId is not assignable to needed Object id
@@ -49,7 +54,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
         user = await new userModel({ name, password, email, role }).save()
 
         const token = generateToken(user._id, user.role)
-
+        logger.info(`User ${user._id} successfully ${req.method} on ${req.originalUrl}`)
         res.status(200).json({ _id: user._id, name: user.name, email: user.email, token })
     } catch (error) {
         next(error)
@@ -71,7 +76,7 @@ const authoriseUser = async (req: Request, res: Response, next: NextFunction) =>
         }
 
         const token = generateToken(user._id, user.role)
-
+        logger.info(`User ${user._id} successfully ${req.method} on ${req.originalUrl}`)
         res.status(200).json({ _id: user._id, name: user.name, email: user.email, token })
     } catch (error) {
         next(error)
@@ -88,6 +93,11 @@ const updateUser = async (req: Request, res: Response, next: NextFunction) => {
 
         let userId = req.params.userId
         let { name, password, email } = req.body
+        let { id } = (req as IGetUserAuthInfoRequest).user
+
+        if (userId !== id) {
+            throw new ErrorHandler(403, "User is not authorised")
+        }
 
         if (!name || !password || !email) {
             throw new ErrorHandler(400, "All fields are required")
@@ -112,6 +122,7 @@ const updateUser = async (req: Request, res: Response, next: NextFunction) => {
         }
 
         user = await userModel.findByIdAndUpdate(userId, { name, password, email }, { new: true })
+        logger.info(`User ${id} successfully ${req.method} on ${req.originalUrl}`)
         res.status(200).json({ name, password, email, id: user!._id })
     } catch (error) {
         next(error)
@@ -125,9 +136,12 @@ const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
         if (authorizationError) {
             throw new ErrorHandler(authorizationError.statusCode, authorizationError.message)
         }
+        let { id } = (req as IGetUserAuthInfoRequest).user
 
         let { userId } = req.params
-        let user = await userModel.findByIdAndDelete(userId).select("name email")
+        let user = await userModel.findByIdAndDelete(userId).select("name email avatar")
+        await taskModel.deleteMany({ creatorId: userId })
+        logger.info(`Admin ${id} successfully ${req.method} ${userId} on ${req.originalUrl}`)
         res.status(200).json(user)
     } catch (error) {
         next(error)
@@ -138,7 +152,13 @@ const findUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         let userId = req.params.userId
 
-        let user = await userModel.findById(userId).select("name email")
+        let user = await userModel.findById(userId).select("name email avatar")
+
+        if (!user) {
+            throw new ErrorHandler(400, "Wrong userId")
+        }
+
+        logger.info(`Successfully ${req.method} on ${req.originalUrl}`)
         res.status(200).json(user)
     } catch (error) {
         next(error)
@@ -171,14 +191,50 @@ const getUsers = async (req: Request, res: Response, next: NextFunction) => {
 
         let users = await userModel
             .find(query)
-            .select("name email")
+            .select("name email avatar")
             .limit(usersPerPage)
             .sort({ _id: sortOrder })
             .skip(Number(page) * usersPerPage)
+        logger.info(`Successfully ${req.method} on ${req.originalUrl}`)
         res.status(200).json(users)
     } catch (error) {
         next(error)
     }
 }
 
-export { createUser, authoriseUser, updateUser, deleteUser, findUser, getUsers }
+const addPicture = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        let authorizationError = (req as IGetUserAuthInfoRequest).error
+
+        if (authorizationError) {
+            throw new ErrorHandler(authorizationError.statusCode, authorizationError.message)
+        }
+
+        let userId = req.params.userId
+        let { id } = (req as IGetUserAuthInfoRequest).user
+
+        if (!req.files) {
+            throw new ErrorHandler(400, "No image provided")
+        }
+        if (userId !== id) {
+            throw new ErrorHandler(403, "User is not authorised")
+        }
+
+        let fileName = randomUUID() + ".jpg"
+        let user = await userModel.findByIdAndUpdate(userId, { avatar: fileName })
+
+        if (!user) {
+            throw new ErrorHandler(400, "Wrong userId")
+        }
+
+        console.log(req.files)
+        let filePath = path.resolve("static", fileName)
+        let image = req.files.image as UploadedFile
+        image.mv(filePath)
+        res.status(200).json(user.avatar)
+    } catch (error) {
+        next(error)
+    }
+}
+
+export { createUser, authoriseUser, updateUser, deleteUser, findUser, getUsers, addPicture }

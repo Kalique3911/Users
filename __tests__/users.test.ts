@@ -29,20 +29,6 @@ describe("users", () => {
         await mongoose.connection.close()
     })
 
-    describe("get user route", () => {
-        describe("given the user exsits", () => {
-            it("should return 200", async () => {
-                const _id = userPayload.testuserId
-                await supertest(app).get(`/users/${_id}`).expect(200)
-            })
-        })
-        describe("given the user does not exsit", () => {
-            it("should return 500", async () => {
-                const _id = "123"
-                await supertest(app).get(`/users/${_id}`).expect(500)
-            })
-        })
-    })
     describe("post create user route", () => {
         describe("given password is not valid", () => {
             it("should return 400 and invalid password", async () => {
@@ -90,6 +76,20 @@ describe("users", () => {
                     .send({ ...userPayload, name })
                 expect(statusCode).toBe(400)
                 expect(body).toBe("This email is already associated with an account")
+            })
+        })
+    })
+    describe("get user route", () => {
+        describe("given the user exsits", () => {
+            it("should return 200", async () => {
+                const _id = userPayload._id
+                await supertest(app).get(`/users/${_id}`).expect(200)
+            })
+        })
+        describe("given the user does not exsit", () => {
+            it("should return 500", async () => {
+                const _id = "123"
+                await supertest(app).get(`/users/${_id}`).expect(500)
             })
         })
     })
@@ -150,10 +150,16 @@ describe("users", () => {
                 expect(statusCode).toBe(200)
             })
         })
+        describe("given user is not permitted to delete", () => {
+            it("should return 403", async () => {
+                const { statusCode } = await supertest(app).delete(`/users/${userPayload._id}`).set("Authorization", userPayload.testuserToken)
+                expect(statusCode).toBe(403)
+            })
+        })
         describe("given user is deleted", () => {
-            it("should return null in body", async () => {
+            it("should return Wrong userId", async () => {
                 const { body } = await supertest(app).get(`/users/${userPayload._id}`)
-                expect(body).toBe(null)
+                expect(body).toBe("Wrong userId")
             })
         })
     })

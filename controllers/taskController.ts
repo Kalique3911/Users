@@ -3,6 +3,7 @@ import { taskModel } from "../models/taskModel"
 import { NextFunction, Request, Response } from "express"
 import { IGetUserAuthInfoRequest } from "../types"
 import { ErrorHandler } from "../utils/errorHandling"
+import { logger } from "../logger"
 
 const createTask = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -13,9 +14,13 @@ const createTask = async (req: Request, res: Response, next: NextFunction) => {
         }
 
         let { title, creatorId, text } = req.body
+        let { id } = (req as IGetUserAuthInfoRequest).user
 
         if (!creatorId || !title || !text) {
             throw new ErrorHandler(400, "All fields are required")
+        }
+        if (creatorId !== id) {
+            throw new ErrorHandler(403, "User is not authorised")
         }
 
         let task = new taskModel({
@@ -24,6 +29,7 @@ const createTask = async (req: Request, res: Response, next: NextFunction) => {
             text,
         })
         await task.save()
+        logger.info(`User ${id} successfully ${req.method} on ${req.originalUrl}`)
         res.status(200).json(task)
     } catch (error) {
         next(error)
@@ -31,7 +37,6 @@ const createTask = async (req: Request, res: Response, next: NextFunction) => {
 }
 
 const getUserTasks = async (req: Request, res: Response, next: NextFunction) => {
-    //'any' because cannot get 'user' from 'req'
     try {
         let authorizationError = (req as IGetUserAuthInfoRequest).error
 
@@ -72,14 +77,14 @@ const getUserTasks = async (req: Request, res: Response, next: NextFunction) => 
             .limit(tasksPerPage)
             .sort({ _id: sortOrder })
             .skip(Number(page) * tasksPerPage)
+        logger.info(`User ${id} successfully ${req.method} on ${req.originalUrl}`)
         res.status(200).json(tasks)
     } catch (error) {
         next(error)
     }
 }
 
-const updateTask = async (req: any, res: Response, next: NextFunction) => {
-    //'any' because cannot get 'user' from 'req'
+const updateTask = async (req: Request, res: Response, next: NextFunction) => {
     try {
         let authorizationError = (req as IGetUserAuthInfoRequest).error
 
@@ -89,7 +94,7 @@ const updateTask = async (req: any, res: Response, next: NextFunction) => {
 
         let { taskId } = req.params
         let { title, creatorId, text } = req.body
-        let { id } = req.user
+        let { id } = (req as IGetUserAuthInfoRequest).user
 
         if (!creatorId || !title || !text) {
             throw new ErrorHandler(400, "All fields are required")
@@ -99,14 +104,14 @@ const updateTask = async (req: any, res: Response, next: NextFunction) => {
         }
 
         let task = await taskModel.findByIdAndUpdate(taskId, { title, creatorId, text }, { new: true })
+        logger.info(`User ${id} successfully ${req.method} on ${req.originalUrl}`)
         res.status(200).json({ title, creatorId, text, id: task!._id })
     } catch (error) {
         next(error)
     }
 }
 
-const deleteTask = async (req: any, res: Response, next: NextFunction) => {
-    //'any' because cannot get 'user' from 'req'
+const deleteTask = async (req: Request, res: Response, next: NextFunction) => {
     try {
         let authorizationError = (req as IGetUserAuthInfoRequest).error
 
@@ -116,15 +121,15 @@ const deleteTask = async (req: any, res: Response, next: NextFunction) => {
 
         let { taskId } = req.params
         let { creatorId } = req.body
-        let { id } = req.user
+        let { id } = (req as IGetUserAuthInfoRequest).user
 
         if (creatorId !== id) {
             throw new ErrorHandler(403, "User is not authorised")
         }
 
         let task = await taskModel.findByIdAndDelete(taskId)
+        logger.info(`User ${id} successfully ${req.method} on ${req.originalUrl}`)
         res.status(200).json(task)
-        //todo delete all tasks with user
     } catch (error) {
         next(error)
     }
