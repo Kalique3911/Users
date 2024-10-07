@@ -15,7 +15,7 @@ const taskPayload = {
     token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDJmM2NhOWZjZWEzZjk0NGM1NGJmYSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzI4MjQ2NzMwLCJleHAiOjE3Mjg1MDU5MzB9.SLRwLUxA4vXvnRBKPDEC1_k4ejOqRYPFshTI2kTilIY",
 }
 
-describe("users", () => {
+describe("tasks", () => {
     beforeAll(async () => {
         const mongoServer = await MongoMemoryServer.create()
 
@@ -27,7 +27,7 @@ describe("users", () => {
         await mongoose.connection.close()
     })
 
-    describe("get tasks route", () => {
+    describe("post tasks route", () => {
         describe("given task data is missing creator", () => {
             it("should return 400 and no creator", async () => {
                 const { body, statusCode } = await supertest(app).post(`/tasks/create`).set("Authorization", taskPayload.token).send({ taskPayload, creatorId: null })
@@ -43,14 +43,16 @@ describe("users", () => {
                 expect(body._id.length > 2).toBe(true)
             })
         })
-        describe("given user tasks", () => {
-            it("should return 200 and tasks array", async () => {
-                const userId = taskPayload.testuserId
-                const { body, statusCode } = await supertest(app).get(`/tasks/${userId}`).set("Authorization", taskPayload.token)
-                expect(statusCode).toBe(200)
-                expect(Array.isArray(body)).toBe(true)
-            })
+    })
+    describe("get user tasks route", () => {
+        it("should return 200 and tasks array", async () => {
+            const userId = taskPayload.testuserId
+            const { body, statusCode } = await supertest(app).get(`/tasks/${userId}`).set("Authorization", taskPayload.token)
+            expect(statusCode).toBe(200)
+            expect(Array.isArray(body)).toBe(true)
         })
+    })
+    describe("put task route", () => {
         describe("given new task data is ok", () => {
             it("should return 200 and task with previous id", async () => {
                 const { body, statusCode } = await supertest(app).put(`/tasks/${taskPayload._id}`).set("Authorization", taskPayload.token).send(taskPayload)
@@ -69,10 +71,10 @@ describe("users", () => {
                 expect(body).toBe("All fields are required")
             })
         })
-        describe("given task is permitted to delete", () => {
-            it("should return 200", async () => {
-                await supertest(app).delete(`/tasks/${taskPayload._id}`).set("Authorization", taskPayload.token).send(taskPayload).expect(200)
-            })
+    })
+    describe("delete task route", () => {
+        it("should return 200", async () => {
+            await supertest(app).delete(`/tasks/${taskPayload._id}`).set("Authorization", taskPayload.token).send(taskPayload).expect(200)
         })
     })
 })

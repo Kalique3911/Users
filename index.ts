@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 import { createServer } from "./utils/server"
 
 const port = process.env.PORT || 5000
-const uri = process.env.URI || ""
+const uri = process.env.URI!
 
 const app = createServer()
 
