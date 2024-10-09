@@ -3,7 +3,7 @@ import jwt, { JwtPayload } from "jsonwebtoken"
 import { IGetUserAuthInfoRequest } from "../types"
 import { ErrorHandler } from "./errorHandling"
 
-export const checkIsAuthorised = (req: Request, res: Response, next: NextFunction) => {
+export const checkIsAuthorized = (req: Request, res: Response, next: NextFunction) => {
     if (req.method === "OPTIONS") {
         next()
     }

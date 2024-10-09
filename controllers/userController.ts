@@ -17,8 +17,11 @@ const generateToken = (id: any, role: string) => {
         role,
     }
 
-    return jwt.sign(payload, "SUPER_SECRET_KEY", { expiresIn: "3d" })
+    return jwt.sign(payload, "SUPER_SECRET_KEY", { expiresIn: "10d" })
 }
+
+const passwordRegExp = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{8,1024}$/
+const emailRegExp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -42,8 +45,6 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
             throw new ErrorHandler(400, "This email is already associated with an account") //reason for 'any'
         }
 
-        let passwordRegExp = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{8,1024}$/
-        let emailRegExp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
         if (!passwordRegExp.test(password)) {
             throw new ErrorHandler(400, "Invalid password")
         }
@@ -112,8 +113,6 @@ const updateUser = async (req: Request, res: Response, next: NextFunction) => {
             throw new ErrorHandler(400, "This email is already associated with an account")
         }
 
-        let passwordRegExp = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{8,1024}$/
-        let emailRegExp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
         if (!passwordRegExp.test(password)) {
             throw new ErrorHandler(400, "Invalid password")
         }
@@ -123,7 +122,7 @@ const updateUser = async (req: Request, res: Response, next: NextFunction) => {
 
         user = await userModel.findByIdAndUpdate(userId, { name, password, email }, { new: true })
         logger.info(`User ${id} successfully ${req.method} on ${req.originalUrl}`)
-        res.status(200).json({ name, password, email, id: user!._id })
+        res.status(200).json({ name, email, id: user!._id })
     } catch (error) {
         next(error)
     }
@@ -227,7 +226,6 @@ const addPicture = async (req: Request, res: Response, next: NextFunction) => {
             throw new ErrorHandler(400, "Wrong userId")
         }
 
-        console.log(req.files)
         let filePath = path.resolve("static", fileName)
         let image = req.files.image as UploadedFile
         image.mv(filePath)

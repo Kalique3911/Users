@@ -1,99 +1,57 @@
-{"level":"ERROR","time":"2024-10-07T20:00:06.519Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to PUT on /users/6702f3ca9fcea3f944c54bfa because 400: This email is already associated with an account"}
-{"level":"ERROR","time":"2024-10-07T20:11:46.038Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to PATCH on /users/6702f3ca9fcea3f944c54bfa because undefined: User validation failed: role: Path `role` is required."}
-{"level":"ERROR","time":"2024-10-07T20:12:19.338Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to PATCH on /users/6702f3ca9fcea3f944c54bfa because undefined: User validation failed: role: Path `role` is required."}
-{"level":"ERROR","time":"2024-10-07T20:37:41.873Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to PATCH on /users/6702f3ca9fcea3f944c54bfa because undefined: User validation failed: role: Path `role` is required."}
-{"level":"ERROR","time":"2024-10-07T20:41:21.489Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to PATCH on /users/6702f3ca9fcea3f944c54bfa because undefined: User validation failed: role: Path `role` is required."}
-{"level":"ERROR","time":"2024-10-07T20:42:33.810Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to PATCH on /users/6702f3ca9fcea3f944c54bfa because undefined: User validation failed: role: Path `role` is required."}
-{"level":"ERROR","time":"2024-10-07T20:51:21.314Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to PATCH on /users/6702f3ca9fcea3f944c54bfa because undefined: User validation failed: role: Path `role` is required."}
-{"level":"INFO","time":"2024-10-07T20:53:29.502Z","msg":"Successfully GET on /users/6702f3ca9fcea3f944c54bfa"}
-{"level":"INFO","time":"2024-10-07T20:53:59.369Z","msg":"Successfully GET on /users/6702f3ca9fcea3f944c54bfa"}
-{"level":"INFO","time":"2024-10-07T21:00:48.231Z","msg":"Successfully GET on /users/"}
-{"level":"ERROR","time":"2024-10-07T21:18:28.749Z","msg":"User undefined failed to GET on /users/6702f3ca9fcea3f944c54bfa because 400: Wrong userId"}
-{"level":"ERROR","time":"2024-10-07T21:18:28.787Z","msg":"User undefined failed to GET on /users/123 because undefined: Cast to ObjectId failed for value \"123\" (type string) at path \"_id\" for model \"User\""}
-{"level":"ERROR","time":"2024-10-07T21:18:28.849Z","msg":"User undefined failed to POST on /users/create because 400: Invalid password"}
-{"level":"ERROR","time":"2024-10-07T21:18:28.881Z","msg":"User undefined failed to POST on /users/create because 400: Invalid email"}
-{"level":"INFO","time":"2024-10-07T21:18:28.938Z","msg":"User 67045024bf260df59672c3e9 successfully POST on /users/create"}
-{"level":"ERROR","time":"2024-10-07T21:18:28.965Z","msg":"User undefined failed to POST on /users/create because 400: This name is already associated with an account"}
-{"level":"ERROR","time":"2024-10-07T21:18:28.996Z","msg":"User undefined failed to POST on /users/create because 400: This email is already associated with an account"}
-{"level":"ERROR","time":"2024-10-07T21:18:29.019Z","msg":"User undefined failed to POST on /users/authorise because 400: Invalid name, email or password"}
-{"level":"INFO","time":"2024-10-07T21:18:29.041Z","msg":"User 67045024bf260df59672c3e9 successfully POST on /users/authorise"}
-{"level":"ERROR","time":"2024-10-07T21:18:29.072Z","msg":"User 67045024bf260df59672c3e9 failed to PUT on /users/67045024bf260df59672c3e9 because 400: Invalid password"}
-{"level":"ERROR","time":"2024-10-07T21:18:29.106Z","msg":"User 67045024bf260df59672c3e9 failed to PUT on /users/67045024bf260df59672c3e9 because 400: Invalid email"}
-{"level":"INFO","time":"2024-10-07T21:18:29.142Z","msg":"User 67045024bf260df59672c3e9 successfully PUT on /users/67045024bf260df59672c3e9"}
-{"level":"INFO","time":"2024-10-07T21:18:29.162Z","msg":"Admin 6702f39d9fcea3f944c54bf6 successfully DELETE 67045024bf260df59672c3e9 on /users/67045024bf260df59672c3e9"}
-{"level":"ERROR","time":"2024-10-07T21:18:29.189Z","msg":"User 67045024bf260df59672c3e9 failed to DELETE on /users/67045024bf260df59672c3e9 because 403: User is not authorised"}
-{"level":"ERROR","time":"2024-10-07T21:18:29.217Z","msg":"User undefined failed to GET on /users/67045024bf260df59672c3e9 because 400: Wrong userId"}
-{"level":"INFO","time":"2024-10-07T21:18:29.240Z","msg":"Successfully GET on /users/"}
-{"level":"ERROR","time":"2024-10-07T21:18:30.793Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to POST on /tasks/create because 400: All fields are required"}
-{"level":"INFO","time":"2024-10-07T21:18:30.848Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully POST on /tasks/create"}
-{"level":"INFO","time":"2024-10-07T21:18:30.876Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully GET on /tasks/6702f3ca9fcea3f944c54bfa"}
-{"level":"INFO","time":"2024-10-07T21:18:30.904Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully PUT on /tasks/670450264a0609cb0cdfc7c7"}
-{"level":"ERROR","time":"2024-10-07T21:18:30.923Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to PUT on /tasks/[object%20Object] because 400: All fields are required"}
-{"level":"INFO","time":"2024-10-07T21:18:30.959Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully DELETE on /tasks/670450264a0609cb0cdfc7c7"}
-{"level":"ERROR","time":"2024-10-07T21:21:33.388Z","msg":"User undefined failed to GET on /users/6702f3ca9fcea3f944c54bfa because 400: Wrong userId"}
-{"level":"ERROR","time":"2024-10-07T21:21:33.422Z","msg":"User undefined failed to GET on /users/123 because undefined: Cast to ObjectId failed for value \"123\" (type string) at path \"_id\" for model \"User\""}
-{"level":"ERROR","time":"2024-10-07T21:21:33.480Z","msg":"User undefined failed to POST on /users/create because 400: Invalid password"}
-{"level":"ERROR","time":"2024-10-07T21:21:33.512Z","msg":"User undefined failed to POST on /users/create because 400: Invalid email"}
-{"level":"INFO","time":"2024-10-07T21:21:33.570Z","msg":"User 670450dd7c70f016583b6c2c successfully POST on /users/create"}
-{"level":"ERROR","time":"2024-10-07T21:21:33.598Z","msg":"User undefined failed to POST on /users/create because 400: This name is already associated with an account"}
-{"level":"ERROR","time":"2024-10-07T21:21:33.628Z","msg":"User undefined failed to POST on /users/create because 400: This email is already associated with an account"}
-{"level":"ERROR","time":"2024-10-07T21:21:33.651Z","msg":"User undefined failed to POST on /users/authorise because 400: Invalid name, email or password"}
-{"level":"INFO","time":"2024-10-07T21:21:33.674Z","msg":"User 670450dd7c70f016583b6c2c successfully POST on /users/authorise"}
-{"level":"ERROR","time":"2024-10-07T21:21:33.704Z","msg":"User 670450dd7c70f016583b6c2c failed to PUT on /users/670450dd7c70f016583b6c2c because 400: Invalid password"}
-{"level":"ERROR","time":"2024-10-07T21:21:33.735Z","msg":"User 670450dd7c70f016583b6c2c failed to PUT on /users/670450dd7c70f016583b6c2c because 400: Invalid email"}
-{"level":"INFO","time":"2024-10-07T21:21:33.771Z","msg":"User 670450dd7c70f016583b6c2c successfully PUT on /users/670450dd7c70f016583b6c2c"}
-{"level":"INFO","time":"2024-10-07T21:21:33.790Z","msg":"Admin 6702f39d9fcea3f944c54bf6 successfully DELETE 670450dd7c70f016583b6c2c on /users/670450dd7c70f016583b6c2c"}
-{"level":"ERROR","time":"2024-10-07T21:21:33.818Z","msg":"User 670450dd7c70f016583b6c2c failed to DELETE on /users/670450dd7c70f016583b6c2c because 403: User is not authorised"}
-{"level":"ERROR","time":"2024-10-07T21:21:33.846Z","msg":"User undefined failed to GET on /users/670450dd7c70f016583b6c2c because 400: Wrong userId"}
-{"level":"INFO","time":"2024-10-07T21:21:33.866Z","msg":"Successfully GET on /users/"}
-{"level":"ERROR","time":"2024-10-07T21:21:35.158Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to POST on /tasks/create because 400: All fields are required"}
-{"level":"INFO","time":"2024-10-07T21:21:35.210Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully POST on /tasks/create"}
-{"level":"INFO","time":"2024-10-07T21:21:35.239Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully GET on /tasks/6702f3ca9fcea3f944c54bfa"}
-{"level":"INFO","time":"2024-10-07T21:21:35.267Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully PUT on /tasks/670450df56bcc4c189c17b1b"}
-{"level":"ERROR","time":"2024-10-07T21:21:35.285Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to PUT on /tasks/[object%20Object] because 400: All fields are required"}
-{"level":"INFO","time":"2024-10-07T21:21:35.323Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully DELETE on /tasks/670450df56bcc4c189c17b1b"}
-{"level":"INFO","time":"2024-10-07T21:22:32.789Z","msg":"Successfully GET on /users/6702f3ca9fcea3f944c54bfa"}
-{"level":"ERROR","time":"2024-10-07T21:23:32.931Z","msg":"User undefined failed to POST on /users/create because 400: Invalid password"}
-{"level":"ERROR","time":"2024-10-07T21:23:32.984Z","msg":"User undefined failed to POST on /users/create because 400: Invalid email"}
-{"level":"INFO","time":"2024-10-07T21:23:33.036Z","msg":"User 67045155776e9ab0fc78b464 successfully POST on /users/create"}
-{"level":"ERROR","time":"2024-10-07T21:23:33.062Z","msg":"User undefined failed to POST on /users/create because 400: This name is already associated with an account"}
-{"level":"ERROR","time":"2024-10-07T21:23:33.091Z","msg":"User undefined failed to POST on /users/create because 400: This email is already associated with an account"}
-{"level":"INFO","time":"2024-10-07T21:23:33.130Z","msg":"Successfully GET on /users/67045155776e9ab0fc78b464"}
-{"level":"ERROR","time":"2024-10-07T21:23:33.151Z","msg":"User undefined failed to GET on /users/123 because undefined: Cast to ObjectId failed for value \"123\" (type string) at path \"_id\" for model \"User\""}
-{"level":"ERROR","time":"2024-10-07T21:23:33.184Z","msg":"User undefined failed to POST on /users/authorise because 400: Invalid name, email or password"}
-{"level":"INFO","time":"2024-10-07T21:23:33.212Z","msg":"User 67045155776e9ab0fc78b464 successfully POST on /users/authorise"}
-{"level":"ERROR","time":"2024-10-07T21:23:33.250Z","msg":"User 67045155776e9ab0fc78b464 failed to PUT on /users/67045155776e9ab0fc78b464 because 400: Invalid password"}
-{"level":"ERROR","time":"2024-10-07T21:23:33.281Z","msg":"User 67045155776e9ab0fc78b464 failed to PUT on /users/67045155776e9ab0fc78b464 because 400: Invalid email"}
-{"level":"INFO","time":"2024-10-07T21:23:33.320Z","msg":"User 67045155776e9ab0fc78b464 successfully PUT on /users/67045155776e9ab0fc78b464"}
-{"level":"INFO","time":"2024-10-07T21:23:33.340Z","msg":"Admin 6702f39d9fcea3f944c54bf6 successfully DELETE 67045155776e9ab0fc78b464 on /users/67045155776e9ab0fc78b464"}
-{"level":"ERROR","time":"2024-10-07T21:23:33.368Z","msg":"User 67045155776e9ab0fc78b464 failed to DELETE on /users/67045155776e9ab0fc78b464 because 403: User is not authorised"}
-{"level":"ERROR","time":"2024-10-07T21:23:33.395Z","msg":"User undefined failed to GET on /users/67045155776e9ab0fc78b464 because 400: Wrong userId"}
-{"level":"INFO","time":"2024-10-07T21:23:33.416Z","msg":"Successfully GET on /users/"}
-{"level":"ERROR","time":"2024-10-07T21:23:34.700Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to POST on /tasks/create because 400: All fields are required"}
-{"level":"INFO","time":"2024-10-07T21:23:34.751Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully POST on /tasks/create"}
-{"level":"INFO","time":"2024-10-07T21:23:34.781Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully GET on /tasks/6702f3ca9fcea3f944c54bfa"}
-{"level":"INFO","time":"2024-10-07T21:23:34.807Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully PUT on /tasks/67045156e01bfcff0f15c0aa"}
-{"level":"ERROR","time":"2024-10-07T21:23:34.826Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to PUT on /tasks/[object%20Object] because 400: All fields are required"}
-{"level":"INFO","time":"2024-10-07T21:23:34.860Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully DELETE on /tasks/67045156e01bfcff0f15c0aa"}
-{"level":"ERROR","time":"2024-10-07T21:30:30.464Z","msg":"User undefined failed to POST on /users/create because 400: Invalid password"}
-{"level":"ERROR","time":"2024-10-07T21:30:30.514Z","msg":"User undefined failed to POST on /users/create because 400: Invalid email"}
-{"level":"INFO","time":"2024-10-07T21:30:30.566Z","msg":"User 670452f6bcc8caea6d720e49 successfully POST on /users/create"}
-{"level":"ERROR","time":"2024-10-07T21:30:30.590Z","msg":"User undefined failed to POST on /users/create because 400: This name is already associated with an account"}
-{"level":"ERROR","time":"2024-10-07T21:30:30.623Z","msg":"User undefined failed to POST on /users/create because 400: This email is already associated with an account"}
-{"level":"INFO","time":"2024-10-07T21:30:30.664Z","msg":"Successfully GET on /users/670452f6bcc8caea6d720e49"}
-{"level":"ERROR","time":"2024-10-07T21:30:30.685Z","msg":"User undefined failed to GET on /users/123 because undefined: Cast to ObjectId failed for value \"123\" (type string) at path \"_id\" for model \"User\""}
-{"level":"ERROR","time":"2024-10-07T21:30:30.720Z","msg":"User undefined failed to POST on /users/authorise because 400: Invalid name, email or password"}
-{"level":"INFO","time":"2024-10-07T21:30:30.744Z","msg":"User 670452f6bcc8caea6d720e49 successfully POST on /users/authorise"}
-{"level":"ERROR","time":"2024-10-07T21:30:30.783Z","msg":"User 670452f6bcc8caea6d720e49 failed to PUT on /users/670452f6bcc8caea6d720e49 because 400: Invalid password"}
-{"level":"ERROR","time":"2024-10-07T21:30:30.820Z","msg":"User 670452f6bcc8caea6d720e49 failed to PUT on /users/670452f6bcc8caea6d720e49 because 400: Invalid email"}
-{"level":"INFO","time":"2024-10-07T21:30:30.860Z","msg":"User 670452f6bcc8caea6d720e49 successfully PUT on /users/670452f6bcc8caea6d720e49"}
-{"level":"INFO","time":"2024-10-07T21:30:30.887Z","msg":"Admin 6702f39d9fcea3f944c54bf6 successfully DELETE 670452f6bcc8caea6d720e49 on /users/670452f6bcc8caea6d720e49"}
-{"level":"ERROR","time":"2024-10-07T21:30:30.916Z","msg":"User 670452f6bcc8caea6d720e49 failed to DELETE on /users/670452f6bcc8caea6d720e49 because 403: User is not authorised"}
-{"level":"ERROR","time":"2024-10-07T21:30:30.942Z","msg":"User undefined failed to GET on /users/670452f6bcc8caea6d720e49 because 400: Wrong userId"}
-{"level":"INFO","time":"2024-10-07T21:30:30.962Z","msg":"Successfully GET on /users/"}
-{"level":"ERROR","time":"2024-10-07T21:30:32.249Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to POST on /tasks/create because 400: All fields are required"}
-{"level":"INFO","time":"2024-10-07T21:30:32.308Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully POST on /tasks/create"}
-{"level":"INFO","time":"2024-10-07T21:30:32.337Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully GET on /tasks/6702f3ca9fcea3f944c54bfa"}
-{"level":"INFO","time":"2024-10-07T21:30:32.366Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully PUT on /tasks/670452f8438e5c3084519b81"}
-{"level":"ERROR","time":"2024-10-07T21:30:32.385Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to PUT on /tasks/[object%20Object] because 400: All fields are required"}
-{"level":"INFO","time":"2024-10-07T21:30:32.422Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully DELETE on /tasks/670452f8438e5c3084519b81"}
+{"level":"ERROR","time":"2024-10-09T12:28:33.644Z","msg":"User undefined failed to POST on /users/create because 400: Invalid password"}
+{"level":"ERROR","time":"2024-10-09T12:28:33.690Z","msg":"User undefined failed to POST on /users/create because 400: Invalid email"}
+{"level":"INFO","time":"2024-10-09T12:28:33.743Z","msg":"User 670676f1e234424e376deb2f successfully POST on /users/create"}
+{"level":"ERROR","time":"2024-10-09T12:28:33.767Z","msg":"User undefined failed to POST on /users/create because 400: This name is already associated with an account"}
+{"level":"ERROR","time":"2024-10-09T12:28:33.797Z","msg":"User undefined failed to POST on /users/create because 400: This email is already associated with an account"}
+{"level":"INFO","time":"2024-10-09T12:28:33.838Z","msg":"Successfully GET on /users/670676f1e234424e376deb2f"}
+{"level":"ERROR","time":"2024-10-09T12:28:33.859Z","msg":"User undefined failed to GET on /users/123 because undefined: Cast to ObjectId failed for value \"123\" (type string) at path \"_id\" for model \"User\""}
+{"level":"ERROR","time":"2024-10-09T12:28:33.893Z","msg":"User undefined failed to POST on /users/authorise because 400: Invalid name, email or password"}
+{"level":"INFO","time":"2024-10-09T12:28:33.922Z","msg":"User 670676f1e234424e376deb2f successfully POST on /users/authorise"}
+{"level":"ERROR","time":"2024-10-09T12:28:33.959Z","msg":"User 670676f1e234424e376deb2f failed to PUT on /users/670676f1e234424e376deb2f because 400: Invalid password"}
+{"level":"ERROR","time":"2024-10-09T12:28:33.992Z","msg":"User 670676f1e234424e376deb2f failed to PUT on /users/670676f1e234424e376deb2f because 400: Invalid email"}
+{"level":"INFO","time":"2024-10-09T12:28:34.035Z","msg":"User 670676f1e234424e376deb2f successfully PUT on /users/670676f1e234424e376deb2f"}
+{"level":"INFO","time":"2024-10-09T12:28:34.063Z","msg":"Admin 6702f39d9fcea3f944c54bf6 successfully DELETE 670676f1e234424e376deb2f on /users/670676f1e234424e376deb2f"}
+{"level":"ERROR","time":"2024-10-09T12:28:34.093Z","msg":"User 670676f1e234424e376deb2f failed to DELETE on /users/670676f1e234424e376deb2f because 403: User is not authorised"}
+{"level":"ERROR","time":"2024-10-09T12:28:34.125Z","msg":"User undefined failed to GET on /users/670676f1e234424e376deb2f because 400: Wrong userId"}
+{"level":"INFO","time":"2024-10-09T12:28:34.147Z","msg":"Successfully GET on /users/"}
+{"level":"ERROR","time":"2024-10-09T12:28:35.451Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to POST on /tasks/create because 400: All fields are required"}
+{"level":"INFO","time":"2024-10-09T12:28:35.509Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully POST on /tasks/create"}
+{"level":"INFO","time":"2024-10-09T12:28:35.538Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully GET on /tasks/6702f3ca9fcea3f944c54bfa"}
+{"level":"INFO","time":"2024-10-09T12:28:35.566Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully PUT on /tasks/670676f3c8063713648c7348"}
+{"level":"ERROR","time":"2024-10-09T12:28:35.585Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to PUT on /tasks/[object%20Object] because 400: All fields are required"}
+{"level":"INFO","time":"2024-10-09T12:28:35.620Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully DELETE on /tasks/670676f3c8063713648c7348"}
+{"level":"ERROR","time":"2024-10-09T12:38:59.182Z","msg":"User undefined failed to POST on /users/create because 400: Invalid password"}
+{"level":"ERROR","time":"2024-10-09T12:38:59.253Z","msg":"User undefined failed to POST on /users/create because 400: Invalid email"}
+{"level":"INFO","time":"2024-10-09T12:38:59.305Z","msg":"User 670679631db8d15316730848 successfully POST on /users/create"}
+{"level":"ERROR","time":"2024-10-09T12:38:59.330Z","msg":"User undefined failed to POST on /users/create because 400: This name is already associated with an account"}
+{"level":"ERROR","time":"2024-10-09T12:38:59.359Z","msg":"User undefined failed to POST on /users/create because 400: This email is already associated with an account"}
+{"level":"INFO","time":"2024-10-09T12:38:59.400Z","msg":"Successfully GET on /users/670679631db8d15316730848"}
+{"level":"ERROR","time":"2024-10-09T12:38:59.420Z","msg":"User undefined failed to GET on /users/123 because undefined: Cast to ObjectId failed for value \"123\" (type string) at path \"_id\" for model \"User\""}
+{"level":"ERROR","time":"2024-10-09T12:38:59.456Z","msg":"User undefined failed to POST on /users/authorize because 400: Invalid name, email or password"}
+{"level":"INFO","time":"2024-10-09T12:38:59.482Z","msg":"User 670679631db8d15316730848 successfully POST on /users/authorize"}
+{"level":"ERROR","time":"2024-10-09T12:38:59.522Z","msg":"User 670679631db8d15316730848 failed to PUT on /users/670679631db8d15316730848 because 400: Invalid password"}
+{"level":"ERROR","time":"2024-10-09T12:38:59.556Z","msg":"User 670679631db8d15316730848 failed to PUT on /users/670679631db8d15316730848 because 400: Invalid email"}
+{"level":"INFO","time":"2024-10-09T12:38:59.594Z","msg":"User 670679631db8d15316730848 successfully PUT on /users/670679631db8d15316730848"}
+{"level":"INFO","time":"2024-10-09T12:38:59.620Z","msg":"Admin 6702f39d9fcea3f944c54bf6 successfully DELETE 670679631db8d15316730848 on /users/670679631db8d15316730848"}
+{"level":"ERROR","time":"2024-10-09T12:38:59.649Z","msg":"User 670679631db8d15316730848 failed to DELETE on /users/670679631db8d15316730848 because 403: User is not authorised"}
+{"level":"ERROR","time":"2024-10-09T12:38:59.677Z","msg":"User undefined failed to GET on /users/670679631db8d15316730848 because 400: Wrong userId"}
+{"level":"INFO","time":"2024-10-09T12:38:59.703Z","msg":"Successfully GET on /users/"}
+{"level":"ERROR","time":"2024-10-09T12:39:01.224Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to POST on /tasks/create because 400: All fields are required"}
+{"level":"INFO","time":"2024-10-09T12:39:01.279Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully POST on /tasks/create"}
+{"level":"INFO","time":"2024-10-09T12:39:01.312Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully GET on /tasks/6702f3ca9fcea3f944c54bfa"}
+{"level":"INFO","time":"2024-10-09T12:39:01.339Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully PUT on /tasks/67067965cc278f134d2091d3"}
+{"level":"ERROR","time":"2024-10-09T12:39:01.358Z","msg":"User 6702f3ca9fcea3f944c54bfa failed to PUT on /tasks/[object%20Object] because 400: All fields are required"}
+{"level":"INFO","time":"2024-10-09T12:39:01.394Z","msg":"User 6702f3ca9fcea3f944c54bfa successfully DELETE on /tasks/67067965cc278f134d2091d3"}
+{"level":"ERROR","time":"2024-10-09T13:12:46.367Z","msg":"User undefined failed to PUT on /users/:userId because undefined: jwt malformed"}
+{"level":"INFO","time":"2024-10-09T14:22:27.726Z","msg":"User 670691a33bd37ecba050dbf6 successfully POST on /users/create"}
+{"level":"INFO","time":"2024-10-09T14:25:51.184Z","msg":"Admin 6702f39d9fcea3f944c54bf6 successfully DELETE 670691a33bd37ecba050dbf6 on /users/670691a33bd37ecba050dbf6"}
+{"level":"INFO","time":"2024-10-09T14:26:08.359Z","msg":"User 670692803bd37ecba050dbfc successfully POST on /users/create"}
+{"level":"INFO","time":"2024-10-09T14:26:44.205Z","msg":"User 670692803bd37ecba050dbfc successfully POST on /users/authorize"}
+{"level":"INFO","time":"2024-10-09T14:27:39.854Z","msg":"User 670692803bd37ecba050dbfc successfully PUT on /users/670692803bd37ecba050dbfc"}
+{"level":"INFO","time":"2024-10-09T14:30:33.394Z","msg":"Successfully GET on /users/670692803bd37ecba050dbfc"}
+{"level":"INFO","time":"2024-10-09T14:30:58.128Z","msg":"User 670692803bd37ecba050dbfc successfully POST on /tasks/create"}
+{"level":"INFO","time":"2024-10-09T14:31:51.668Z","msg":"User 670692803bd37ecba050dbfc successfully PUT on /tasks/670693a23bd37ecba050dc05"}
+{"level":"INFO","time":"2024-10-09T14:32:04.768Z","msg":"User 670692803bd37ecba050dbfc successfully DELETE on /tasks/670693a23bd37ecba050dc05"}
+{"level":"ERROR","time":"2024-10-09T14:32:31.215Z","msg":"User 670692803bd37ecba050dbfc failed to GET on /tasks/:670692803bd37ecba050dbfc?page=0&title=title&order=1 because 403: User is not authorised"}
+{"level":"ERROR","time":"2024-10-09T14:32:47.422Z","msg":"User 670692803bd37ecba050dbfc failed to GET on /tasks/:670692803bd37ecba050dbfc?page=0&title=title&order=1 because 403: User is not authorised"}
+{"level":"INFO","time":"2024-10-09T14:32:56.769Z","msg":"User 670692803bd37ecba050dbfc successfully GET on /tasks/670692803bd37ecba050dbfc?page=0&title=title&order=1"}

@@ -93,12 +93,12 @@ describe("users", () => {
             })
         })
     })
-    describe("post authorise user route", () => {
+    describe("post authorize user route", () => {
         describe("given password is not valid", () => {
             it("should return 400 and invalid data", async () => {
                 const password = "123"
                 const { statusCode, body } = await supertest(app)
-                    .post(`/users/authorise`)
+                    .post(`/users/authorize`)
                     .send({ ...userPayload, password })
                 expect(statusCode).toBe(400)
                 expect(body).toBe("Invalid name, email or password")
@@ -106,7 +106,7 @@ describe("users", () => {
         })
         describe("given authorization data is ok", () => {
             it("should return 200", async () => {
-                const { statusCode, body } = await supertest(app).post(`/users/authorise`).send(userPayload)
+                const { statusCode, body } = await supertest(app).post(`/users/authorize`).send(userPayload)
                 expect(statusCode).toBe(200)
                 userPayload._id = body._id
             })
