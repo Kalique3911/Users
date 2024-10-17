@@ -1,6 +1,6 @@
 import supertest from "supertest"
 import { MongoMemoryServer } from "mongodb-memory-server"
-import { createServer } from "../utils/server"
+import { createServer } from "../src/utils/server"
 import mongoose from "mongoose"
 
 const app = createServer()

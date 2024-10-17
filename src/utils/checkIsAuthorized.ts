@@ -1,13 +1,12 @@
 import { NextFunction, Request, Response } from "express"
 import jwt, { JwtPayload } from "jsonwebtoken"
-import { IGetUserAuthInfoRequest } from "../types"
+import { IGetUserAuthInfoRequest } from "../../types"
 import { ErrorHandler } from "./errorHandling"
 
-export const checkIsAdmin = (req: Request, res: Response, next: NextFunction) => {
+export const checkIsAuthorized = (req: Request, res: Response, next: NextFunction) => {
     if (req.method === "OPTIONS") {
         next()
     }
-
     try {
         let token = req.headers.authorization?.split(" ")[1] //recieving token
         if (!token) {
@@ -15,10 +14,6 @@ export const checkIsAdmin = (req: Request, res: Response, next: NextFunction) =>
         }
         let decodedToken = jwt.verify(token, "SUPER_SECRET_KEY") as JwtPayload
         ;(req as IGetUserAuthInfoRequest).user = decodedToken //passing data to other funtions
-        if (decodedToken.role !== "ADMIN") {
-            throw new ErrorHandler(403, "User is not authorised")
-        }
-
         next()
     } catch (error) {
         ;(req as IGetUserAuthInfoRequest).error = error as ErrorHandler

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express"
-import { logger } from "../logger"
-import { IGetUserAuthInfoRequest } from "../types"
+import { logger } from "../../logger"
+import { IGetUserAuthInfoRequest } from "../../types"
 
 export class ErrorHandler extends Error {
     constructor(public statusCode: number, public message: string) {

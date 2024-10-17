@@ -1,6 +1,6 @@
 require("dotenv").config()
 import mongoose from "mongoose"
-import { createServer } from "./utils/server"
+import { createServer } from "./src/utils/server"
 
 const port = process.env.PORT || 5000
 const uri = process.env.URI!

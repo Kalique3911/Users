@@ -1,9 +1,9 @@
 import { SortOrder } from "mongoose"
 import { taskModel } from "../models/taskModel"
 import { NextFunction, Request, Response } from "express"
-import { IGetUserAuthInfoRequest } from "../types"
+import { IGetUserAuthInfoRequest } from "../../types"
 import { ErrorHandler } from "../utils/errorHandling"
-import { logger } from "../logger"
+import { logger } from "../../logger"
 
 const createTask = async (req: Request, res: Response, next: NextFunction) => {
     try {
